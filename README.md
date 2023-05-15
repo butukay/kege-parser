@@ -1,6 +1,6 @@
 # KEGE Parser
 
-This tool is capable of parsing tests from [https://inf-ege.sdamgia.ru](https://inf-ege.sdamgia.ru). It's main purpose was to simplify problem solving workflows, avoid distraction and only on the given tasks.
+This tool is capable of parsing tests from [https://inf-ege.sdamgia.ru](https://inf-ege.sdamgia.ru). It's main purpose was to simplify problem solving workflows, avoid distraction and focus only on the given tasks.
 
 ⚠️ Work in progress, may not work as expected ⚠️
 
