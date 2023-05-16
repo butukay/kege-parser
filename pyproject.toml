@@ -20,3 +20,6 @@ classifiers = [
 [project.urls]
 "Homepage" = "https://github.com/butukay/kege-parser"
 "Bug Tracker" = "https://github.com/kege-parser/issues"
+
+[project.scripts]
+kege = "kege_parser.__main__:main"

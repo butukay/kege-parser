@@ -1,8 +1,16 @@
-#!/opt/homebrew/bin/python3
+TITLE_MSG = """
+    __ __ __________________
+   / //_// ____/ ____/ ____/___  ____ ______________  _____
+  / ,<  / __/ / / __/ __/ / __ \/ __ `/ ___/ ___/ _ \/ ___/
+ / /| |/ /___/ /_/ / /___/ /_/ / /_/ / /  (__  )  __/ /
+/_/ |_/_____/\____/_____/ .___/\__,_/_/  /____/\___/_/
+                       /_/
+
+by Butukay <butukay@gmail.com>
+""".strip("\n") + "\n"
 
 import argparse
 parser = argparse.ArgumentParser()
-parser.add_argument('-q', '--quiet', dest='quiet', action="store_true", help='No headers')
 parser.add_argument(
     '-q', '--quiet', dest='quiet', action="store_true", help='be quiet as possible (no logs)')
 
@@ -30,23 +38,21 @@ parser_run.add_argument(
 parser_run.add_argument(
     '--time-limit', dest='time_limit', type=int, default=20, help='execution time limit in seconds')
 
-args = parser.parse_args()
-
-if not args.quiet:
-    print("""
-__ __ __________________
-/ //_// ____/ ____/ ____/___  ____ ______________  _____
-/ ,<  / __/ / / __/ __/ / __ \/ __ `/ ___/ ___/ _ \/ ___/
-/ /| |/ /___/ /_/ / /___/ /_/ / /_/ / /  (__  )  __/ /
-/_/ |_/_____/\____/_____/ .___/\__,_/_/  /____/\___/_/
-                   /_/
-
-by Butukay <butukay@gmail.com>
-""".strip())
-
-
 from kege_parser.commands import *
 
-kwargs = vars(args)
-globals()[kwargs.pop('subparser')](**kwargs)
+def main():
+    args = parser.parse_args()
 
+    if not args.quiet:
+        print(TITLE_MSG)
+
+
+    kwargs = vars(args)
+    return globals()[kwargs.pop('subparser')](**kwargs)
+
+
+import sys
+if __name__ == "__main__":
+    sys.exit(
+        main()
+    )
