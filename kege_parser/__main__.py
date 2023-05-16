@@ -3,6 +3,8 @@
 import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('-q', '--quiet', dest='quiet', action="store_true", help='No headers')
+parser.add_argument(
+    '-q', '--quiet', dest='quiet', action="store_true", help='be quiet as possible (no logs)')
 
 subparsers = parser.add_subparsers(dest='subparser')
 
