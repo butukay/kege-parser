@@ -46,6 +46,8 @@ def main():
     if not args.quiet:
         print(TITLE_MSG)
 
+    if not args.subparser:
+        return print("Nothing to do")
 
     kwargs = vars(args)
     return globals()[kwargs.pop('subparser')](**kwargs)
