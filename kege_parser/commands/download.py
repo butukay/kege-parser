@@ -17,10 +17,15 @@ def generate_comment_text(problem: Problem) -> str:
 
 
 def generate_input_file_sinppet(problem: Problem) -> str:
+    input_file_path = problem.get_input_file_path()
+
+    with open(input_file_path, "r") as f: # read first 3 lines or 240 chars
+        file_contents_head = "\n".join([ l.strip() for l in align_text(f.read(240)).split("\n")[:3] ])
+
     snippet_text = "\n\n"
-    snippet_text += f"f = open('{problem.get_input_file_path()}', 'r')\n"
+    snippet_text += f"f = open('{input_file_path}', 'r')\n"
     snippet_text += comment_text(f"Содержание файла: [{problem.input_file_url}]")
-    snippet_text += comment_text(align_text(open(problem.get_input_file_path(), 'r').read()[:240]).strip())
+    snippet_text += comment_text(file_contents_head)
     snippet_text += comment_text("...")
 
     return snippet_text
