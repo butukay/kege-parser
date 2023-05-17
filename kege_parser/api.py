@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 
 from kege_parser.typing import Problem
 
+from kege_parser.utils import clean_unicode_text
 
 def get_task_type(prob) -> int:
     nums = prob.find('span', class_="prob_nums")
@@ -22,7 +23,34 @@ def get_task_text(prob) -> str:
     for e in pbody.find_all('p'):
         task_text += e.text.strip() + "\n"
 
-    task_text = task_text.replace("Задание 24", "").replace("Задание 26", "")
+    task_text = clean_unicode_text(task_text)
+
+    task_text = task_text.replace("Задание 24", "") \
+                         .replace("Задание 25", "") \
+                         .replace("Задание 26", "") \
+
+    task_text = task_text.replace("\n\nОтвет:", "")
+
+    while "Входные данные.\n\n" in task_text:
+        task_text = task_text.replace("Входные данные.\n\n", "Входные данные.\n")
+
+    # split text by paragraphs but leave examples
+    lines = task_text.split("\n")
+    task_text = ""
+    for i in range(len(lines)):
+        if not lines[i]: continue
+
+        if len(lines[i]) > 10: # example data lines are usually less 10 symbols
+            if not len(lines[i-1]) > 10: # if previous line was example add \n
+                task_text += "\n"
+
+            task_text += lines[i] + "\n\n"
+
+        else:
+            task_text += lines[i] + "\n"
+
+    # replace 10<sup>6</sup> with 10^6
+    task_text = task_text.replace("<sup>", "^").replace("</sup>", "")
 
     return task_text.strip()
 
@@ -55,9 +83,6 @@ def get_variant_html(test_id: int) -> str: # TODO: exception for invalid test_id
         html = response.text
     else:
         raise Exception("Не могу загрузить страницу")
-
-    html = html.replace("\xa0", " ") # some strange symbol
-    html = html.replace("<sup>", "^").replace("</sup>", "") # replace 10<sup>6</sup> with 10^6
 
     return html
 

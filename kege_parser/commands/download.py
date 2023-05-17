@@ -9,7 +9,7 @@ def generate_comment_text(problem: Problem) -> str:
     task_comment_text = f"Задание {problem.task_type} - №{problem.task_id}\n"
     task_comment_text += f"[https://inf-ege.sdamgia.ru/problem?id={problem.task_id}]\n"
     task_comment_text += "\n"
-    task_comment_text += align_text(problem.task_text.replace("\n", "\n\n")).strip()
+    task_comment_text += align_text(problem.task_text).strip()
     task_comment_text += "\n\n"
     task_comment_text += "Условие загружено с помощью butukay-sdamgia-parser"
 

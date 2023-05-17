@@ -27,3 +27,19 @@ def comment_text(text: str):
 
     return out
 
+
+def clean_unicode_text(text):
+    """Remove some strange chars"""
+
+    text = text.replace("\xa0", " ")
+
+    text = text.replace("\xe2\x80\x89", " ")
+    text = text.replace("\xe2\x80\xaf", " ")
+
+    text = text.replace("\u2009", " ")
+    text = text.replace("\u202f\u202f", "\u202f").replace("\u202f", " ")
+
+    # text = text.replace(u'—', '-')
+
+    return text
+
